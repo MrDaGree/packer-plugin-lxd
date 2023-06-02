@@ -52,7 +52,7 @@ func (s *stepPublish) Run(ctx context.Context, state multistep.StateBag) multist
 	if len(config.OutputAliases) != 0 {
 		for _, v := range config.OutputAliases {
 			publish_args = append(publish_args, "--alias")
-			publish_args = append(publish_args, fmt.Sprintf("%s", v))
+			publish_args = append(publish_args, v)
 		}
 	}
 

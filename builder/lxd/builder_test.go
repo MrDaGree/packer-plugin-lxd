@@ -12,7 +12,7 @@ import (
 
 func testConfig() map[string]interface{} {
 	return map[string]interface{}{
-		"output_alias": ["foo"],
+		"output_alias": []string{"foo"},
 		"image":        "bar",
 	}
 }

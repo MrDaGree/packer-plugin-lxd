@@ -33,6 +33,9 @@ func (s *stepLxdLaunch) Run(ctx context.Context, state multistep.StateBag) multi
 			launch_args = append(launch_args, "--profile")
 			launch_args = append(launch_args, v)
 		}
+	} else {
+		launch_args = append(launch_args, "--profile")
+		launch_args = append(launch_args, "default")
 	}
 
 	for k, v := range config.LaunchConfig {

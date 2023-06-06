@@ -32,7 +32,7 @@ type Config struct {
 	// The source image to use when creating the build
 	// container. This can be a (local or remote) image (name or fingerprint).
 	// E.G. my-base-image, ubuntu-daily:x, 08fababf6f27, ...
-	Image    string    `mapstructure:"image" required:"true"`
+	Image    string   `mapstructure:"image" required:"true"`
 	Profiles []string `mapstructure:"profiles"`
 	// The number of seconds to sleep between launching
 	// the LXD instance and provisioning it; defaults to 3 seconds.

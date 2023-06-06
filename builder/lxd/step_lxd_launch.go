@@ -22,11 +22,16 @@ func (s *stepLxdLaunch) Run(ctx context.Context, state multistep.StateBag) multi
 
 	name := config.ContainerName
 	image := config.Image
-	profile := fmt.Sprintf("--profile=%s", config.Profile)
 	vm := fmt.Sprintf("--vm=%s", strconv.FormatBool(config.VirtualMachine))
 
 	launch_args := []string{
-		"launch", "--ephemeral=false", vm, profile, image, name,
+		"launch", "--ephemeral=false", vm, image, name,
+	}
+
+	if len(config.Profiles) != 0 {
+		for _, v := range config.Profiles {
+			launch_args = append(launch_args, fmt.Sprintf("--profile=%s", v))
+		}
 	}
 
 	for k, v := range config.LaunchConfig {

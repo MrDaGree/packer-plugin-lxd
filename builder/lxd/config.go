@@ -20,8 +20,7 @@ type Config struct {
 	common.PackerConfig `mapstructure:",squash"`
 	// The name of the output artifact. Defaults to
 	// name.
-	OutputImage   string   `mapstructure:"output_image" required:"false"`
-	OutputAliases []string `mapstructure:"output_aliases" required:"false"`
+	OutputAlias   []string `mapstructure:"output_alias" required:"false"`
 	ContainerName string   `mapstructure:"container_name"`
 	// The (optional) name of the LXD remote on which to publish the
 	// container image.
@@ -33,8 +32,8 @@ type Config struct {
 	// The source image to use when creating the build
 	// container. This can be a (local or remote) image (name or fingerprint).
 	// E.G. my-base-image, ubuntu-daily:x, 08fababf6f27, ...
-	Image   string `mapstructure:"image" required:"true"`
-	Profile string `mapstructure:"profile"`
+	Image    string   `mapstructure:"image" required:"true"`
+	Profiles []string `mapstructure:"profiles"`
 	// The number of seconds to sleep between launching
 	// the LXD instance and provisioning it; defaults to 3 seconds.
 	InitSleep string `mapstructure:"init_sleep" required:"false"`
@@ -73,20 +72,12 @@ func (c *Config) Prepare(raws ...interface{}) error {
 		c.ContainerName = fmt.Sprintf("packer-%s", c.PackerBuildName)
 	}
 
-	if c.OutputImage == "" {
-		c.OutputImage = c.ContainerName
-	}
-
 	if c.CommandWrapper == "" {
 		c.CommandWrapper = "{{.Command}}"
 	}
 
 	if c.Image == "" {
 		errs = packersdk.MultiErrorAppend(errs, fmt.Errorf("`image` is a required parameter for LXD. Please specify an image by alias or fingerprint. e.g. `ubuntu-daily:x`"))
-	}
-
-	if c.Profile == "" {
-		c.Profile = "default"
 	}
 
 	// Sadly we have to wait a few seconds for /tmp to be intialized and networking

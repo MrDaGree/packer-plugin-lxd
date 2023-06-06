@@ -1,9 +1,7 @@
 <!-- Code generated from the comments of the Config struct in builder/lxd/config.go; DO NOT EDIT MANUALLY -->
 
-- `output_image` (string) - The name of the output artifact. Defaults to
+- `output_alias` ([]string) - The name of the output artifact. Defaults to
   name.
-
-- `output_aliases` ([]string) - Output Aliases
 
 - `container_name` (string) - Container Name
 
@@ -14,7 +12,7 @@
   with ssh for a remote build host. Defaults to `{{.Command}}`; i.e. no
   wrapper.
 
-- `profile` (string) - Profile
+- `profiles` ([]string) - Profiles
 
 - `init_sleep` (string) - The number of seconds to sleep between launching
   the LXD instance and provisioning it; defaults to 3 seconds.

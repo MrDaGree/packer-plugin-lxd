@@ -48,7 +48,7 @@ func TestBuilderPrepare_ConfigFile(t *testing.T) {
 
 	// Good, remote output image
 	config = testConfig()
-	config["output_image"] = ["remote:foo"]
+	config["output_image"] = []string{"remote:foo"}
 	_, warnings, err = b.Prepare(config)
 	if len(warnings) > 0 {
 		t.Fatalf("bad: %#v", warnings)
